@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <math.h>
 #include <gps.h>
+#include <gpsdclient.h>
 #include "gpsadd.h"
 
 #define MAXCHANNELS   72

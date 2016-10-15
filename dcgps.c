@@ -5,10 +5,7 @@
 -- PROGRAM: gps
 --
 -- FUNCTIONS:
--- int main(int argc, char *argv[]);
--- int gps_open(server, port, gpsdata);
--- int gps_stream (gpsdata, flags, data);
--- void gps_close(gpsdata);
+-- int main();
 --
 -- DATE: October 19th, 2016
 --
@@ -26,10 +23,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <math.h>
 #include <gps.h>
+#include <gpsdclient.h>
 #include "gpsadd.h"
 
-struct gps_data_t gpsdata;
+static struct gps_data_t *gpsdata;
 static struct fixsource_t source;
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -52,11 +51,10 @@ int main() {
 	
 	unsigned int flags = WATCH_ENABLE;
 	
-	/* I am having trouble with malloc'ing, it gives me an 'error: incompatible types when assigning to type 'struct gps_data_t' from type 'void *' */
 	gpsdata = malloc(sizeof(struct gps_data_t));
 	
 	/* Checking for errors on opening gps */
-	if (gps_open(source.server, source.port, &gpsdata) != 0) {
+	if (gps_open(source.server, source.port, gpsdata) != 0) {
 		fprintf(stderr, "An unexpected error has occurred: %d %s\n", errno, gps_errstr(errno));
 	}
 	
@@ -65,7 +63,7 @@ int main() {
 	}
 	
 	/* Opening the GPS stream */
-	gps_stream(&gpsdata, flags, source.device);
+	gps_stream(gpsdata, flags, source.device);
 	
 	/* Note to Mike, please add whatever functions are required to connect to gps-utils.c in this next section before
 	the stream is closed, thanks! */
@@ -76,6 +74,6 @@ int main() {
 	
 	
 	/* Disabling the WATCH as well as closing the gps stream, ending the session. */
-	gps_stream(&gpsdata, WATCH_DISABLE, NULL);
-	(void)gps_close(&gpsdata);
+	gps_stream(gpsdata, WATCH_DISABLE, NULL);
+	(void)gps_close(gpsdata);
 }
