@@ -65,8 +65,9 @@ int main() {
 	/* Opening the GPS stream */
 	gps_stream(gpsdata, flags, source.device);
 	
-	/* Note to Mike, please add whatever functions are required to connect to gps-utils.c in this next section before
-	the stream is closed, thanks! */
+	
+	/* Reads the GPS data and checks for errors. */
+	gps_read_info(gpsdata);
 	
 	
 	
