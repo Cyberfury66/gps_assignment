@@ -52,12 +52,15 @@ static struct fixsource_t source;
 int main() {
 	
 	unsigned int flags = WATCH_ENABLE;
+
+	source.server = LOCAL_HOST;
+	source.port   = DEFAULT_PORT;
 	
 	gpsdata = malloc(sizeof(struct gps_data_t));
 	
 	/* Checking for errors on opening gps */
 	if (gps_open(source.server, source.port, gpsdata) != 0) {
-		fprintf(stderr, "An unexpected error has occurred: %d %s\n", errno, gps_errstr(errno));
+		fprintf(stderr, "An error has occurred: %d %s\n", errno, gps_errstr(errno));
 	}
 	
 	if (source.device != NULL) {

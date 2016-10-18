@@ -1,4 +1,3 @@
-
 #include <panel.h>
 #include <stdlib.h>
 #include <ctype.h>
