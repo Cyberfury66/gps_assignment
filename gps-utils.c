@@ -1,5 +1,6 @@
 /* -----------------------------------------------------------------------------------------------------
--- SOURCE FILE: dcgps.c - A simple console gps program
+-- SOURCE FILE: gps-utils.c - A utility file for the dcgps program. It handles reading of information
+--                            and error detection.
 --
 -- PROGRAM: dcgps
 --
