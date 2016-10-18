@@ -77,11 +77,11 @@ void gps_read_info(struct gps_data_t* gpsdata) {
 --
 -- RETURNS: void
 --
--- PARAMETERS: int n
+-- PARAMETERS: int message
 --
 -- NOTES:
--- This handles errors that are handed to it from gps_read_info. It prints out an error that corresponds
--- with the error that was detected.
+-- This handles errors that are handed to it from gps_read_info. It prints out an error message that 
+-- corresponds with the error that was detected.
 ------------------------------------------------------------------------------------------------------- */
 
 
