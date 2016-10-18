@@ -2,7 +2,7 @@
 -- SOURCE FILE: dcgps.c - A simple console gps program that includes images of coordinates of user on a basic map that 
 -- is created using ascii characters.
 --
--- PROGRAM: gps
+-- PROGRAM: dcgps
 --
 -- FUNCTIONS:
 -- int main();
@@ -76,11 +76,6 @@ int main() {
 	
 	/* Reads the GPS data and checks for errors. */
 	gps_read_info(gpsdata);
-	
-	
-	
-	
-	
 	
 	/* Disabling the WATCH as well as closing the gps stream, ending the session. */
 	gps_stream(gpsdata, WATCH_DISABLE, NULL);
