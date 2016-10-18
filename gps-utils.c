@@ -51,6 +51,7 @@ void gps_read_info(struct gps_data_t* gpsdata) {
 	while(1) {
 		if (!gps_waiting(gpsdata, 50000000)) {
 			error_check(GPS_TIMEOUT);
+			break;
 		} else {
 			errno = 0;
 
