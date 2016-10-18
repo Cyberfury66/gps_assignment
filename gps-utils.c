@@ -1,3 +1,24 @@
+/* -----------------------------------------------------------------------------------------------------
+-- SOURCE FILE: dcgps.c - A simple console gps program
+--
+-- PROGRAM: dcgps
+--
+-- FUNCTIONS:
+--      void gps_read_info(struct gps_data_t*)
+--      void error_check(int)
+-- 
+-- DATE: October 12, 2016
+-- 
+-- DESIGNER:   Michael Goll
+--
+-- PROGRAMMER: Michael Goll
+-- 
+-- NOTES:
+-- This file features two functions that are involved with the checking of errors during run-time and
+-- the handing of valid data to the print function.
+--
+------------------------------------------------------------------------------------------------------ */
+
 #include <stdio.h>
 #include <errno.h>
 #include <gps.h>
@@ -7,6 +28,24 @@ void printSat(struct gps_data_t*);
 void error_check(int n);
 void gps_read_info(struct gps_data_t* gpsdata);
 
+
+/* ------------------------------------------------------------------------------------------------------
+-- FUNCTION: gps_read_info
+--
+-- DATE: October 12, 2016
+--
+-- DESIGNER:   Michael Goll
+--
+-- PROGRAMMER: Michael Goll
+--
+-- RETURNS: void
+--
+-- PARAMETERS: struct gps_data_t*
+--
+-- NOTES:
+-- This starts an infinite loop that receives data from the GPS dongle and checks for errors. If no errors
+-- are detected, then the data is passed to the printSat() function.
+------------------------------------------------------------------------------------------------------- */
 void gps_read_info(struct gps_data_t* gpsdata) {
 	
 	while(1) {
@@ -25,8 +64,28 @@ void gps_read_info(struct gps_data_t* gpsdata) {
 	}
 }
 
-void error_check(int n) {
-    switch(n) {
+/* ------------------------------------------------------------------------------------------------------
+-- FUNCTION: error_check
+--
+-- DATE: October 12, 2016
+--
+-- DESIGNER:   Michael Goll
+--
+-- PROGRAMMER: Michael Goll
+--
+-- RETURNS: void
+--
+-- PARAMETERS: int n
+--
+-- NOTES:
+-- This handles errors that are handed to it from gps_read_info. It prints out an error that corresponds
+-- with the error that was detected.
+------------------------------------------------------------------------------------------------------- */
+
+
+
+void error_check(int message) {
+    switch(message) {
         case GPS_EXIT:
             break;
         case GPS_TIMEOUT:
