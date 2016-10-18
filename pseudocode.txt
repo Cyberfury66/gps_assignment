@@ -1,46 +1,50 @@
-dcgps.c:
-	- main():
-		- Main function of the program
-		- Mallocs the gps_data_t structure
-		- Opens and starts the gpsd stream
+Start
+	Check if a device is connected
+		If connected, attempt to establish socket connection with gpsd daemon
+		If not connected, show error message and exit program
+	If stream with satellite established, proceed to Listen state
+	If stream unable to be established, show error message and exit program
 
-	- exit():
-		- Handles application termination
-				- Frees memory
-				- Closes the gpsd stream
+Listen
+	Continuously Check is any satellites are in user
+		If there are none in use
+			Report no satellites in use until one becomes in use
+	Continuously wait for data from gpsd daemon
+		If no data is received after set amount of time
+			Then timeout the function and exit program
+		If data is received
+			Attempt to read the data
+				If the data is unable to be read
+					Display error message and exit program
+				If the data is readable
+					Then pass data to print
 
-gps-utils.c:
-	- init_thread():
-		- Creates and initializes GPS reading thread
-		- Hands the GPS reading loop to the thread
+Detailed Print
+	Prints out information of each satellite
+		PRN of satellite
+		Elevation
+		Azimuth
+		Signal to noise ratio between Satellite and Device
+		Used
+	Prints out received GPS coordinates
+		Latitude
+			If unable to establish Latitude, prints out "N/A"
+		Longitude
+			If unable to establish Longitude, prints out "N/A"
+	Waits for user input for one of two options:
+		1. Map view that shows a local map of BCIT and where they are on campus
+		2. Exit the program
 
-	- gps_read():
-		- Starts the main GPS reading loop
-		- Sends sensor data to the gps_print() method in gpsprint.c
-		- Passes the gps_data_t structure to gps_print() in gpsprint.c
-	
-	- check_errors():
-		- Checks and handles errors from:
-			- Sensor errors
-			- Stream termination
+Map view
+	Draws a map of BCIT campus
+	Sidebar will show minimal satellite information as well as GPS coordinates
+		Satellite PRN and Used
+		Latitude and Longitude
+	Waits for user input for one of two options:
+		1. Detailed print view that shows more information about satellites (listed in Detailed Print state)
+		2. Exit program
 
-		- Prints out errors to stderr
-
-gpsprint.c:
-	- gps_print():
-		- Prints out the GPS data received in gps_read() in gps-utils.c
-			- GPS data includes:
-				- Time Stamp (UTC) 
-				- Latitude/Longitude
-				- PRN
-				- Elevation
-				- Azimuth
-				- SNR
-				- Used Flag (Y/N)
-
-	- gps_print_location():
-		- Gets information from gps_read() and prints out which "sector" the GPS is currently in
-
-	- gps_show_world():
-		- Prints out a map of the local area where the GPS is
-
+Exit
+	Frees memory that was in use
+	Terminate GPS stream
+	Exits the program
