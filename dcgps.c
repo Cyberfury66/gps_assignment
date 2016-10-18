@@ -25,7 +25,6 @@
 #include <errno.h>
 #include <math.h>
 #include <gps.h>
-#include <gpsdclient.h>
 #include "gpsadd.h"
 
 static struct gps_data_t *gpsdata;
@@ -63,7 +62,10 @@ int main() {
 	}
 	
 	/* Opening the GPS stream */
-	gps_stream(gpsdata, flags, source.device);
+	if (gps_stream(gpsdata, flags, source.device) != 0) {
+	    fprintf(stderr, "GPSD not running: %d, %s\n", errno, gps_errstr(errno));
+        return -1;
+    }
 	
 	
 	/* Reads the GPS data and checks for errors. */
@@ -76,5 +78,6 @@ int main() {
 	
 	/* Disabling the WATCH as well as closing the gps stream, ending the session. */
 	gps_stream(gpsdata, WATCH_DISABLE, NULL);
+	free(gpsdata);
 	(void)gps_close(gpsdata);
 }
