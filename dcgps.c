@@ -26,6 +26,9 @@
 #include <math.h>
 #include <gps.h>
 #include "gpsadd.h"
+#include "gpsdclient.h"
+
+void gps_read_info(struct gps_data_t* gpsdata);
 
 static struct gps_data_t *gpsdata;
 static struct fixsource_t source;
@@ -80,4 +83,5 @@ int main() {
 	gps_stream(gpsdata, WATCH_DISABLE, NULL);
 	free(gpsdata);
 	(void)gps_close(gpsdata);
+        return 0;
 }

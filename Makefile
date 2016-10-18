@@ -2,10 +2,13 @@ CC=gcc -Wall -W -ansi -pedantic
 CLIB=-lgps
 
 dcgps: dcgps.o gps-utils.o gpsprint.c
-	$(CC) -o dcgps dcgps.o gps-utils.o gpsprint.o gpsgfc.o $(CLIB)
+	$(CC) -o dcgps dcgps.o gps-utils.o gpsprint.o $(CLIB)
 
 clean:
 	rm -f *.o core.* dcgps
+
+dcgps.o:
+	$(CC) -c dcgps.c
 
 gps-utils.o:
 	$(CC) -c gps-utils.c
@@ -13,10 +16,6 @@ gps-utils.o:
 gpsprint.o:
 	$(CC) -c gpsprint.c
 
-dcgps.o:
-	$(CC) -c dcgps.c
 
-gpsgfc.o:
-	$(CC) -c gpsgfc.c
 
 

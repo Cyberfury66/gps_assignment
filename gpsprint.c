@@ -1,19 +1,14 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <math.h>
 #include <gps.h>
-#include <gpsdclient.h>
 #include "gpsadd.h"
-
-#define MAXCHANNELS   72
-#define MAX_POSSIBLE_SATS (MAXCHANNELS - 2)
+#include "gpsdclient.h"
 
 bool usedflags[MAXCHANNELS];
-static enum deg_str_type deg_type = deg_dd;
-
 struct gps_data_t *gpsdata;
+char *deg_to_str(enum deg_str_type type, double f); 
 
 int used(bool usedflags){
 	if (usedflags)
@@ -23,19 +18,18 @@ int used(bool usedflags){
 }
 
 void printSat(struct gps_data_t *gpsdata) {
-
-	for (int i = 0; i < MAXCHANNELS; i++) {
-		
+	static enum deg_str_type deg_type = deg_dd;
+	int i, j;
+	
+	for (i = 0; i < MAXCHANNELS; i++) {
 		usedflags[i] = false;
-		for (int j = 0; j < gpsdata->satellites_used; j++)
+		for (j = 0; j < gpsdata->satellites_used; j++)
 			if (gpsdata->used[j] == gpsdata->PRN[i])
 				usedflags[i] = true;
-		
 	}
 
 	if (gpsdata->satellites_visible != 0) {
-		
-		for (int i = 0; i < MAX_POSSIBLE_SATS; i++) {
+		for (i = 0; i < MAX_POSSIBLE_SATS; i++) {
 			if (i < gpsdata->satellites_visible) {
 				fprintf(stdout,"PRN:%03d  Elevation:%02d  Azimuth:%03d  SNR:%02f  Used:%c\n",
 				gpsdata->PRN[i],
@@ -46,14 +40,12 @@ void printSat(struct gps_data_t *gpsdata) {
 				);
 			}
 		}
-		
 	}
 
 	if (gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude)==0) {
 		fprintf(stdout, "Latitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.latitude)),
 		(gpsdata->fix.latitude < 0) ? 'S' : 'N');
 		fflush(stdout);
-		
 	}
 	else 
 		printf("N/A");
@@ -62,7 +54,6 @@ void printSat(struct gps_data_t *gpsdata) {
 		fprintf(stdout, "Longitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.longitude)),
 		(gpsdata->fix.longitude < 0) ? 'W' : 'E');
 		fflush(stdout);
-		
 	}
 	else 
 		printf("N/A\n");
