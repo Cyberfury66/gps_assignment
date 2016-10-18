@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <errno.h>
 #include <gps.h>
+#include "gpsadd.h"
 
 void printSat(struct gps_data_t*);
+void error_check(int n);
+void gps_read_info(struct gps_data_t* gpsdata);
 
 void gps_read_info(struct gps_data_t* gpsdata) {
 	
@@ -11,8 +14,6 @@ void gps_read_info(struct gps_data_t* gpsdata) {
 			error_check(GPS_TIMEOUT);
 		} else {
 			errno = 0;
-
-			error_check(gpsdata);
 
 			if (gps_read(gpsdata) == -1) {
 				fprintf(stderr, "agps:socket error 4\n");
@@ -38,5 +39,5 @@ void error_check(int n) {
             printf("%s", "GPS lost");
             break;
     }
-    refresh();
+ 
 }
