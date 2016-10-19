@@ -84,7 +84,7 @@ void printSat(struct gps_data_t *gpsdata) {
 		}
 	}
 
-	if (gpsdata->fix.mode >= MODE_2D && _isnan(gpsdata->fix.latitude)==0) {
+	if (gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude)==0) {
 		fprintf(stdout, "Latitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.latitude)),
 		(gpsdata->fix.latitude < 0) ? 'S' : 'N');
 		fflush(stdout);
@@ -92,7 +92,7 @@ void printSat(struct gps_data_t *gpsdata) {
 	else 
 		printf("N/A (Latitude not found)\n");
 
-	if (gpsdata->fix.mode >= MODE_2D && _isnan(gpsdata->fix.longitude)==0) {
+	if (gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.longitude)==0) {
 		fprintf(stdout, "Longitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.longitude)),
 		(gpsdata->fix.longitude < 0) ? 'W' : 'E');
 		fflush(stdout);
