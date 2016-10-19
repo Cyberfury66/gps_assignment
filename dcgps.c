@@ -11,7 +11,7 @@
 --
 -- DESIGNER: Yi Hsiang (Mark) Chen
 --
--- PROGRAMMER: Yi Hsiang (Mark) Chen
+-- PROGRAMMER: Yi Hsiang (Mark) Chen, Michael Goll
 --
 -- NOTES:
 -- A gps application that returns information about satellites that contribute to triangulation.
@@ -40,7 +40,7 @@ static struct fixsource_t source;
 --
 -- DESIGNER: Yi Hsiang (Mark) Chen
 --
--- PROGRAMMER: Yi Hsiang (Mark) Chen
+-- PROGRAMMER: Yi Hsiang (Mark) Chen, Michael Goll
 --
 -- RETURNS: int.
 --
