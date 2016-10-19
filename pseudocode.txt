@@ -27,22 +27,13 @@ Detailed Print
 		Signal to noise ratio between Satellite and Device
 		Used
 	Prints out received GPS coordinates
+		Time stamp (UTC)
 		Latitude
 			If unable to establish Latitude, prints out "N/A"
 		Longitude
 			If unable to establish Longitude, prints out "N/A"
 	Waits for user input for one of two options:
-		1. Map view that shows a local map of BCIT and where they are on campus
-		2. Exit the program
-
-Map view
-	Draws a map of BCIT campus
-	Sidebar will show minimal satellite information as well as GPS coordinates
-		Satellite PRN and Used
-		Latitude and Longitude
-	Waits for user input for one of two options:
-		1. Detailed print view that shows more information about satellites (listed in Detailed Print state)
-		2. Exit program
+		1. Exit the program
 
 Exit
 	Frees memory that was in use
