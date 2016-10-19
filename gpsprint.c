@@ -63,7 +63,7 @@ void printSat(struct gps_data_t *gpsdata) {
 	static enum deg_str_type deg_type = deg_dd;
 	int i, j;
 	
-	for (i = 0; i < MAXCHANNELS; i++) {
+	for (i = 0; i < satellites_visible; i++) {
 		usedflags[i] = false;
 		for (j = 0; j < gpsdata->satellites_used; j++)
 			if (gpsdata->used[j] == gpsdata->PRN[i])
@@ -71,16 +71,14 @@ void printSat(struct gps_data_t *gpsdata) {
 	}
 
 	if (gpsdata->satellites_visible != 0) {
-		for (i = 0; i < MAX_POSSIBLE_SATS; i++) {
-			if (i < gpsdata->satellites_visible) {
-				fprintf(stdout,"\nPRN:%03d | Elevation:%02d | Azimuth:%03d | SNR:%02f | Used:%c\n",
-				gpsdata->PRN[i],
-				gpsdata->elevation[i],
-				gpsdata->azimuth[i],
-				gpsdata->ss[i],
-				(usedflags[i]) ? 'Y' : 'N'
-				);
-			}
+		for (i = 0; i < gpsdata->satellites_visible; i++) {
+			fprintf(stdout,"\nPRN:%03d | Elevation:%02d | Azimuth:%03d | SNR:%02f | Used:%c\n",
+			gpsdata->PRN[i],
+			gpsdata->elevation[i],
+			gpsdata->azimuth[i],
+			gpsdata->ss[i],
+			(usedflags[i]) ? 'Y' : 'N'
+			);
 		}
 	}
 
