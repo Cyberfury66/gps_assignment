@@ -1,3 +1,28 @@
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: gpsprint.c - contains the print function to print the satellite information.
+--
+-- PROGRAM: dcgps
+--
+-- FUNCTIONS:
+-- void printSat(struct gps_data_t *gpsdata)
+--
+-- DATE: October 19, 2016
+--
+-- DESIGNER: Yi Hsiang (Mark) Chen
+--
+-- PROGRAMMER: Yi Hsiang (Mark) Chen, Michael Goll
+--
+-- NOTES:
+-- This contains the function to print following information about each satellite:
+-- - Timestamp (UTC)
+-- - PRN
+-- - Elevation
+-- - Azimuth
+-- - SNR 
+-- - Whether or not it is used
+-- As well, the function will also print out the latitude and longitude of the device.
+----------------------------------------------------------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <errno.h>
 #include <math.h>
@@ -15,6 +40,30 @@ int used(bool usedflags){
 	else
 		return 'N';
 }
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: printSat
+--
+-- DATE: October 19, 2016
+--
+-- DESIGNER: Yi Hsiang (Mark) Chen
+--
+-- PROGRAMMER: Yi Hsiang (Mark) Chen, Michael Goll
+--
+-- INTERFACE: printSat(struct gps_data_t *gpsdata)
+--
+-- RETURNS: void.
+--
+-- NOTES:
+-- This contains the function to print following information about each satellite:
+-- - Timestamp (UTC)
+-- - PRN
+-- - Elevation
+-- - Azimuth
+-- - SNR 
+-- - Whether or not it is used
+-- As well, the function will also print out the latitude and longitude of the device.
+----------------------------------------------------------------------------------------------------------------------*/
 
 void printSat(struct gps_data_t *gpsdata) {
 	static enum deg_str_type deg_type = deg_dd;
