@@ -90,7 +90,7 @@ void printSat(struct gps_data_t *gpsdata) {
 		fflush(stdout);
 	}
 	else 
-		printf("N/A (Latitude not found)");
+		printf("N/A (Latitude not found)\n");
 
 	if (gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.longitude)==0) {
 		fprintf(stdout, "Longitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.longitude)),
