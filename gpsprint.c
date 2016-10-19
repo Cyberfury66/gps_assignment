@@ -78,7 +78,7 @@ void printSat(struct gps_data_t *gpsdata) {
 				gpsdata->elevation[i],
 				gpsdata->azimuth[i],
 				gpsdata->ss[i],
-				(usedflags[i]) ? 'T' : 'F';,
+				(usedflags[i]) ? 'T' : 'F';
 				);
 			}
 		}
