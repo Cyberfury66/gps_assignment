@@ -79,7 +79,7 @@ void printSat(struct gps_data_t *gpsdata) {
 	if (gpsdata->satellites_visible != 0) {
 		for (i = 0; i < MAX_POSSIBLE_SATS; i++) {
 			if (i < gpsdata->satellites_visible) {
-				fprintf(stdout,"PRN:%03d  Elevation:%02d  Azimuth:%03d  SNR:%02f  Used:%c\n",
+				fprintf(stdout,"\nPRN:%03d | Elevation:%02d | Azimuth:%03d | SNR:%02f | Used:%c\n",
 				gpsdata->PRN[i],
 				gpsdata->elevation[i],
 				gpsdata->azimuth[i],
@@ -96,7 +96,7 @@ void printSat(struct gps_data_t *gpsdata) {
 		fflush(stdout);
 	}
 	else 
-		printf("N/A");
+		printf("Latitude not found");
 
 	if (gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.longitude)==0) {
 		fprintf(stdout, "Longitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.longitude)),
@@ -104,5 +104,5 @@ void printSat(struct gps_data_t *gpsdata) {
 		fflush(stdout);
 	}
 	else 
-		printf("N/A\n");
+		printf("Longitude not found\n");
 }
