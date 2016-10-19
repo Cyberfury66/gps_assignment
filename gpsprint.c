@@ -34,12 +34,6 @@ bool usedflags[MAXCHANNELS];
 struct gps_data_t *gpsdata;
 char *deg_to_str(enum deg_str_type type, double f); 
 
-int used(bool usedflags){
-	if (usedflags)
-		return 'Y';
-	else
-		return 'N';
-}
 
 /*------------------------------------------------------------------------------------------------------------------
 -- FUNCTION: printSat
@@ -84,7 +78,7 @@ void printSat(struct gps_data_t *gpsdata) {
 				gpsdata->elevation[i],
 				gpsdata->azimuth[i],
 				gpsdata->ss[i],
-				used(usedflags[i])
+				(usedflags[i]) ? 'T' : 'F',
 				);
 			}
 		}
@@ -96,7 +90,7 @@ void printSat(struct gps_data_t *gpsdata) {
 		fflush(stdout);
 	}
 	else 
-		printf("Latitude not found");
+		printf("N/A (Latitude not found)");
 
 	if (gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.longitude)==0) {
 		fprintf(stdout, "Longitude: %s %c;", deg_to_str(deg_type, fabs(gpsdata->fix.longitude)),
@@ -104,5 +98,5 @@ void printSat(struct gps_data_t *gpsdata) {
 		fflush(stdout);
 	}
 	else 
-		printf("Longitude not found\n");
+		printf("N/A (Longitude not found)\n");
 }
